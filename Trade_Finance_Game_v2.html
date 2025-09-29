@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Finance Business Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Header -->
+        <header class="game-header">
+            <div class="header-content">
+                <h1><i class="fas fa-industry"></i> Textile Trade Finance Simulator</h1>
+                <div class="player-stats">
+                    <div class="stat">
+                        <i class="fas fa-dollar-sign"></i>
+                        <span id="cash">$50,000.00</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-chart-line"></i>
+                        <span id="reputation">50</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-calendar"></i>
+                        <span id="day">Day 1</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Game Area -->
+        <main class="game-main">
+            <!-- Left Sidebar - Business Operations -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-boxes"></i> Raw Materials Inventory</h3>
+                    <div class="inventory-list" id="inventory">
+                        <!-- Inventory items will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-cogs"></i> Currently Manufacturing</h3>
+                    <div class="inventory-list" id="manufacturingOrders">
+                        <!-- Manufacturing orders will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-industry"></i> Finished Products</h3>
+                    <div class="inventory-list" id="finishedProducts">
+                        <!-- Finished products will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-file-contract"></i> Vendor Orders</h3>
+                    <div class="orders-list" id="orders">
+                        <!-- Orders will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-handshake"></i> Sales Orders</h3>
+                    <div class="orders-list" id="salesOrders">
+                        <!-- Sales orders will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-university"></i> Outstanding Loans</h3>
+                    <div class="loans-list" id="loansList">
+                        <!-- Outstanding loans will be populated by JavaScript -->
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <div class="main-content">
+                <!-- Business Events Section -->
+                <section class="events-container">
+                    <!-- Game Events and Messages -->
+                    <div class="events-panel">
+                        <h3><i class="fas fa-newspaper"></i> Business Events</h3>
+                        <div class="events-list" id="events">
+                            <!-- Events will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Actions Section -->
+                <section class="actions-container">
+                    <!-- Action Buttons -->
+                    <div class="action-panel">
+                        <h3><i class="fas fa-play"></i> Actions</h3>
+                        <div class="action-buttons">
+                            <button class="action-btn" id="newOrderBtn">
+                                <i class="fas fa-plus"></i> Source Materials
+                            </button>
+                            <button class="action-btn" id="manufactureBtn">
+                                <i class="fas fa-industry"></i> Manufacture
+                            </button>
+                            <button class="action-btn" id="salesBtn">
+                                <i class="fas fa-handshake"></i> Sell Products
+                            </button>
+                            <button class="action-btn" id="visitBankBtn">
+                                <i class="fas fa-university"></i> Visit Bank
+                            </button>
+                            <button class="action-btn" id="nextDayBtn">
+                                <i class="fas fa-forward"></i> Next Day
+                            </button>
+                            <button class="action-btn" id="tutorialBtn">
+                                <i class="fas fa-graduation-cap"></i> Tutorial
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Sidebar - Market Information -->
+            <aside class="market-sidebar">
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-globe"></i> Raw Material Prices</h3>
+                    <div class="market-prices" id="marketPrices">
+                        <!-- Market prices will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-info-circle"></i> Trade Finance Guide</h3>
+                    <div class="guide-content" id="guideContent">
+                        <div class="guide-item clickable-guide-item" onclick="game.showGuideItemAttachments('factoring')">
+                            <h4>Factoring</h4>
+                            <p>Sell your accounts receivable for immediate cash. Get paid upfront for your sales.</p>
+                        </div>
+                        <div class="guide-item clickable-guide-item" onclick="game.showGuideItemAttachments('tradeLoan')">
+                            <h4>Trade Loan</h4>
+                            <p>Short-term financing for inventory purchases or working capital needs.</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Source Raw Materials</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="orderForm">
+                    <div class="form-group">
+                        <label for="orderType">Order Type:</label>
+                        <select id="orderType" required>
+                            <option value="">Select Order Type</option>
+                            <option value="import">Import Raw Materials</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="product">Raw Material:</label>
+                        <select id="product" required>
+                            <option value="">Select Raw Material</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="vendor">Vendor:</label>
+                        <select id="vendor" required>
+                            <option value="">Select Vendor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="quantity">Quantity (lbs):</label>
+                        <input type="number" id="quantity" min="1" max="10000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="financingMethod">Financing Method:</label>
+                        <select id="financingMethod" required>
+                            <option value="">Select Financing</option>
+                            <option value="cash">Cash Payment</option>
+                            <option value="tradeLoan">Trade Loan</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="tenorGroup" style="display: none;">
+                        <label for="tenor">Repayment Tenor (days):</label>
+                        <select id="tenor" required>
+                            <option value="">Select Tenor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn-primary">Place Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="manufactureModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Manufacture Products</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="manufactureForm">
+                    <div class="form-group">
+                        <label for="manufactureProduct">Product to Manufacture:</label>
+                        <select id="manufactureProduct" required>
+                            <option value="">Select Product</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="manufactureQuantity">Quantity:</label>
+                        <input type="number" id="manufactureQuantity" min="1" max="10000" required>
+                        <div id="manufacturingCapacity"></div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn-primary">Manufacture</button>
+                    </div>
+                </form>
+                <div id="manufactureInfo" style="margin-top: 1rem; padding: 1rem; background: #f7fafc; border-radius: 6px;">
+                    <h4>Available Products:</h4>
+                    <div id="productInfo"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="salesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Sell Finished Products</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="salesForm">
+                    <div class="form-group">
+                        <label for="salesProduct">Product:</label>
+                        <select id="salesProduct" required>
+                            <option value="">Select Product</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="salesBuyer">Buyer:</label>
+                        <select id="salesBuyer" required>
+                            <option value="">Select Buyer</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="salesQuantity">Quantity:</label>
+                        <input type="number" id="salesQuantity" min="1" max="10000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="salesFinancingMethod">Financing Method:</label>
+                        <select id="salesFinancingMethod" required>
+                            <option value="">Select Financing</option>
+                            <option value="cash">Cash Payment</option>
+                            <option value="factoring">Factoring</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn-primary">Create Sales Order</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="bankModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Banking Services</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="banking-services" id="bankingServices">
+                    <!-- Banking services will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="tutorialModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Trade Finance Tutorial</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="tutorial-content" id="tutorialContent">
+                    <!-- Tutorial content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="guideItemModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3 id="guideItemTitle">Trade Finance Guide</h3>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div id="attachedDocuments">
+                    <!-- Attached documents will be displayed here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,740 @@
+/* Trade Finance Game Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+.game-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.game-header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.game-header h1 {
+    color: #2d3748;
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.player-stats {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.stat i {
+    font-size: 1.1rem;
+}
+
+/* Main Layout */
+.game-main {
+    display: grid;
+    grid-template-columns: 300px 1fr 300px;
+    grid-template-areas: 
+        "sidebar main-content market";
+    gap: 20px;
+    min-height: 80vh;
+    align-items: stretch; /* Both panels start at same height */
+}
+
+/* Main Content Container */
+.main-content {
+    grid-area: main-content;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    height: 100%;
+}
+
+/* Events Container */
+.events-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 3px solid #667eea;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 60vh;
+}
+
+/* Actions Container */
+.actions-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    border: 3px solid #48bb78;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    height: fit-content; /* Allow to grow with content */
+    min-height: 100%; /* Start at same height as right panel */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Market Sidebar Styles */
+.market-sidebar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    height: 100%; /* Start at same height as left panel */
+    max-height: 800px; /* Allow enough space for all content */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Market sidebar sections should distribute space evenly */
+.market-sidebar .sidebar-section {
+    flex: 1; /* Take equal space */
+    margin-bottom: 25px;
+    overflow: hidden; /* Remove scrolling to prevent scroll bars */
+}
+
+.sidebar-section {
+    margin-bottom: 25px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.sidebar-section h3 {
+    color: #2d3748;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 8px;
+}
+
+.events-panel, .action-panel {
+    background: #f7fafc;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.events-panel h3, .action-panel h3 {
+    color: #2d3748;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Events */
+.events-list {
+    flex: 1;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    padding-right: 10px;
+    max-height: calc(60vh - 120px);
+}
+
+.events-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.events-list::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+}
+
+.events-list::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 4px;
+}
+
+.events-list::-webkit-scrollbar-thumb:hover {
+    background: #5a67d8;
+}
+
+.event {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-left: 4px solid #667eea;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.event:last-child {
+    background: #f0f4ff;
+    border-left-color: #4c51bf;
+    box-shadow: 0 4px 12px rgba(76, 81, 191, 0.15);
+    transform: scale(1.02);
+}
+
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.event-time {
+    font-weight: 600;
+    color: #667eea;
+    font-size: 1rem;
+}
+
+.event-type {
+    background: #667eea;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.event-content {
+    color: #4a5568;
+    line-height: 1.5;
+    font-size: 1rem;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.action-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+}
+
+/* Inventory Lists */
+.inventory-list, .orders-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.inventory-item, .order-item {
+    background: #f7fafc;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    border-left: 3px solid #e2e8f0; /* Changed from blue to gray */
+}
+
+/* Manufacturing Orders Specific Styling */
+#manufacturingOrders .order-item {
+    background: #f0f9ff;
+    border-left: 3px solid #94a3b8; /* Changed from blue to gray */
+    position: relative;
+}
+
+#manufacturingOrders .order-item::before {
+    content: "⚙️";
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    font-size: 1.2rem;
+    opacity: 0.7;
+}
+
+.inventory-item h4, .order-item h4 {
+    color: #2d3748;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.inventory-item p, .order-item p {
+    color: #718096;
+    font-size: 0.8rem;
+    margin: 2px 0;
+}
+
+/* Market Prices */
+.market-prices {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.market-item {
+    background: #f7fafc;
+    border-radius: 8px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.market-item:hover {
+    background: #e6fffa;
+    transform: translateX(3px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.market-item h4 {
+    color: #2d3748;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.market-item .price {
+    color: #667eea;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.market-item .vendor {
+    color: #718096;
+    font-size: 0.8rem;
+}
+
+/* Guide Content */
+.guide-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.guide-item {
+    background: #f7fafc;
+    border-radius: 8px;
+    padding: 15px;
+    border-left: 3px solid #667eea;
+}
+
+.guide-item h4 {
+    color: #2d3748;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.guide-item p {
+    color: #4a5568;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Clickable guide item styles */
+.clickable-guide-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clickable-guide-item:hover {
+    background: #e6fffa;
+    border-left-color: #667eea;
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+/* Banking Products */
+.banking-products {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.banking-item {
+    background: #f7fafc;
+    border-radius: 8px;
+    padding: 12px;
+    border-left: 3px solid #667eea;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.banking-item:hover {
+    background: #e6fffa;
+    border-left-color: #667eea;
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.banking-item h4 {
+    color: #2d3748;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.banking-item p {
+    color: #718096;
+    font-size: 0.8rem;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: white;
+    margin: 5% auto;
+    padding: 0;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: modalSlideIn 0.3s ease;
+}
+
+.modal-content.large {
+    max-width: 800px;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 20px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.close {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.close:hover {
+    opacity: 0.7;
+}
+
+.modal-body {
+    padding: 30px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: 20px 30px;
+    background: #f7fafc;
+    border-radius: 0 0 15px 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group select:focus,
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: #718096;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.btn-secondary:hover {
+    background: #4a5568;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(74, 85, 104, 0.4);
+}
+
+/* Banking Services */
+.banking-services {
+    display: grid;
+    gap: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.banking-service {
+    background: #f7fafc;
+    border-radius: 10px;
+    padding: 20px;
+    border-left: 4px solid #667eea;
+}
+
+.banking-service h4 {
+    color: #2d3748;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.banking-service p {
+    color: #4a5568;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.banking-service button {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.banking-service button:hover {
+    background: #5a67d8;
+    transform: translateY(-1px);
+}
+
+/* Tutorial Content */
+.tutorial-content {
+    line-height: 1.6;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.tutorial-content h4 {
+    color: #2d3748;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 20px 0 10px 0;
+}
+
+.tutorial-content p {
+    color: #4a5568;
+    margin-bottom: 15px;
+}
+
+.tutorial-content ul {
+    margin-left: 20px;
+    margin-bottom: 15px;
+}
+
+.tutorial-content li {
+    color: #4a5568;
+    margin-bottom: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .game-main {
+        grid-template-columns: 250px 1fr 250px;
+    }
+}
+
+@media (max-width: 900px) {
+    .game-main {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "main-content"
+            "sidebar"
+            "market";
+        gap: 15px;
+    }
+    
+    .main-content {
+        order: 1;
+    }
+    
+    .sidebar {
+        order: 2;
+    }
+    
+    .market-sidebar {
+        order: 3;
+    }
+    
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .player-stats {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .game-container {
+        padding: 10px;
+    }
+    
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .modal-body {
+        padding: 20px;
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5a67d8;
+}
